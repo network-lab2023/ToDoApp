@@ -1,10 +1,11 @@
-import express, { Application, Request, Response } from 'express'
+import express, { Application, Request, Response } from 'express';
+import todoappRoutes from './routes/todoappRoutes';
 
-const app: Application = express()
-const PORT = 3000
+const app: Application = express();
+const PORT: number = 3000;
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -13,11 +14,13 @@ app.use((req, res, next) => {
     next();
 });
 
+//sample routes
 app.get('/api/v1/sample', async (_req: Request, res: Response) => {
-    return res.status(200).send({
-        message: 'Hello World!',
-    })
+    return res.status(200).send({message: 'Hello World!'});
 })
+
+//routes
+todoappRoutes(app);
 
 app.listen(PORT, () => {
     console.log(`running: http://localhost:${PORT}/`)
